@@ -18,15 +18,18 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
+        working-directory: ./hospital-staff
         run: yarn install --frozen-lockfile
 
       - name: Build project
+        working-directory: ./hospital-staff
         run: yarn build
 
-      - name: Install Serverless Framework
-        run: yarn global add serverless
+      - name: Install Serverless CLI
+        run: npm install -g serverless@4.28.0
 
       - name: Deploy to AWS
+        working-directory: ./hospital-staff
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
